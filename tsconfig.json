@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "strict": true
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true
   },
-  "include": ["stories"]
+  "include": ["stories", "custom.d.ts"]
 }

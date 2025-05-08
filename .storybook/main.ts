@@ -7,10 +7,6 @@ const config: StorybookConfig = {
   core: {
     builder: "@storybook/builder-vite",
   },
-  docs: {
-    autodocs: "tag",
-  },
-  staticDirs: ["../public"],
 };
 
 export default config;

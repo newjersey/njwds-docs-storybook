@@ -8,4 +8,4 @@ const meta: Meta<typeof NjwdsModal> = {
 
 export default meta;
 
-export const Info: StoryObj<typeof NjwdsModal> = {};
+export const Default: StoryObj<typeof NjwdsModal> = {};

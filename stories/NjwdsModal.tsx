@@ -1,4 +1,5 @@
 import React from "react";
+import icons from "../node_modules/@newjersey/njwds/dist/img/sprite.svg";
 
 export const NjwdsModal = () => {
   return (
@@ -46,7 +47,7 @@ export const NjwdsModal = () => {
             data-close-modal
           >
             <svg className="usa-icon" aria-hidden="true" focusable="false" role="img">
-              <use href="../../dist/img/sprite.svg#close"></use>
+              <use href={`${icons}#close`}></use>
             </svg>
           </button>
         </div>
