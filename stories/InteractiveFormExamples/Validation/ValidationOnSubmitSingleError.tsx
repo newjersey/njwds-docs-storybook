@@ -1,29 +1,26 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import icons from "@newjersey/njwds/dist/img/sprite.svg";
 import { useRef, useState } from "react";
 
 export const ValidationOnSubmitSingleError = () => {
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
   const [email, setEmail] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const validEmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
-  function onSubmit(e: any) {
+  function onSubmit(e: FormEvent) {
     e.preventDefault();
 
     if (!email.match(validEmailRegex)) {
       setIsInvalidEmail(true);
-      setErrorMessage("Please enter a valid email address!");
 
       if (inputRef.current != null) {
         inputRef.current.focus();
       }
     } else {
       setIsInvalidEmail(false);
-      setErrorMessage("");
     }
   }
 
@@ -54,7 +51,7 @@ export const ValidationOnSubmitSingleError = () => {
               <use xlinkHref={`${icons}#error`}></use>
             </svg>
             <span className="usa-error-message" id="input-error-message" role="alert">
-              {errorMessage}
+              Please enter a valid email address!
             </span>
           </div>
         )}
