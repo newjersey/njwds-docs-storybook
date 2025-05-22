@@ -1,6 +1,6 @@
 import React from "react";
 import icons from "@newjersey/njwds/dist/img/sprite.svg";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 
 export const ValidationOnSubmitSingleError = () => {
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
@@ -11,27 +11,24 @@ export const ValidationOnSubmitSingleError = () => {
 
   const validEmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
-  function onClickSubmitButton() {
-    if (email.length === 0) {
-      setIsInvalidEmail(true);
-      setErrorMessage("Please enter an email to proceed!");
-    } else if (!email.match(validEmailRegex)) {
+  function onSubmit(e: any) {
+    e.preventDefault();
+
+    if (!email.match(validEmailRegex)) {
       setIsInvalidEmail(true);
       setErrorMessage("Please enter a valid email address!");
+
+      if (inputRef.current != null) {
+        inputRef.current.focus();
+      }
     } else {
       setIsInvalidEmail(false);
       setErrorMessage("");
     }
   }
 
-  useEffect(() => {
-    if (isInvalidEmail === true && inputRef.current != null) {
-      inputRef.current.focus();
-    }
-  }, [isInvalidEmail]);
-
   return (
-    <div className="usa-form">
+    <form className="usa-form" onSubmit={onSubmit}>
       <div className={`usa-form-group ${isInvalidEmail ? "usa-form-group--error" : ""}`}>
         <label className={`usa-label ${isInvalidEmail ? "usa-label--error" : ""}`} htmlFor="email">
           Email
@@ -63,12 +60,9 @@ export const ValidationOnSubmitSingleError = () => {
         )}
       </div>
 
-      <button
-        className="usa-button blue-override margin-top-2 display-flex flex-row flex-align-items-center"
-        onClick={onClickSubmitButton}
-      >
+      <button className="usa-button blue-override margin-top-2 display-flex flex-row flex-align-items-center">
         <span>Submit</span>
       </button>
-    </div>
+    </form>
   );
 };
