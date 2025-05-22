@@ -1,0 +1,14 @@
+import { Meta, Canvas } from "@storybook/blocks";
+import * as ValidationOnSubmitSingleError from "./ValidationOnSubmitSingleError.stories.tsx";
+import ValidationOnSubmitSingleErrorSrc from "./ValidationOnSubmitSingleError?raw";
+
+<Meta title="Interactive Form Examples/Validation/Validation on Submit (with One Error)" />
+
+<Canvas
+  of={ValidationOnSubmitSingleError.Docs}
+  source={{
+    code: ValidationOnSubmitSingleErrorSrc,
+    language: "tsx",
+  }}
+  sourceState="shown"
+/>
