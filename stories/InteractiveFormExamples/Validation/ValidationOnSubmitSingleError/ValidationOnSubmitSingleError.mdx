@@ -7,8 +7,12 @@ import ValidationOnSubmitSingleErrorSrc from "./ValidationOnSubmitSingleError?ra
 The following example demonstrates best practices for validating form inputs on submit.
 
 - The error should be visually and programmatically associated with the input that needs attention
-- The error message should be succinct and informative
+  - In the code below, this programmatic association is achieved by using `aria-describedby` to
+    refer to the ID of the error message when it is displayed.
+  - Remember to remove this ID from `aria-describedby` when the error message is removed!
 - The input that needs user attention should receive focus upon validation
+  - In the code below, this is achieved by using `useRef` to create a reference to the input element
+    (`inputRef`) and then shifting focus to `inputRef`
 
 <Canvas
   of={ValidationOnSubmitSingleError.Docs}
