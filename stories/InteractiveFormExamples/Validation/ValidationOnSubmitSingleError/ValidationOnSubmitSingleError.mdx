@@ -2,6 +2,14 @@ import { Meta, Canvas } from "@storybook/blocks";
 import * as ValidationOnSubmitSingleError from "./ValidationOnSubmitSingleError.stories.js";
 import ValidationOnSubmitSingleErrorSrc from "./ValidationOnSubmitSingleError?raw";
 
+# Form Validation on Submit - One Error
+
+The following example demonstrates best practices for validating form inputs on submit.
+
+- The error should be visually and programmatically associated with the input that needs attention
+- The error message should be succinct and informative
+- The input that needs user attention should receive focus upon validation
+
 <Canvas
   of={ValidationOnSubmitSingleError.Docs}
   source={{ code: ValidationOnSubmitSingleErrorSrc, language: "tsx" }}

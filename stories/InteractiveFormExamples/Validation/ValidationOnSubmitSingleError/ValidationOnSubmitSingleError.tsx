@@ -29,9 +29,6 @@ export const ValidationOnSubmitSingleError = () => {
       <div className={`usa-form-group ${isInvalidEmail ? "usa-form-group--error" : ""}`}>
         <label className={`usa-label ${isInvalidEmail ? "usa-label--error" : ""}`} htmlFor="email">
           Email
-          <abbr title="required" className="usa-label--required">
-            *
-          </abbr>
         </label>
         <span id="input-hint" className="usa-hint">
           Try submitting without entering a valid email address to trigger a validation error
@@ -39,10 +36,9 @@ export const ValidationOnSubmitSingleError = () => {
         <input
           className={`usa-input ${isInvalidEmail ? "usa-input--error" : ""}`}
           ref={inputRef}
-          aria-describedby="input-hint"
+          aria-describedby={`input-hint ${isInvalidEmail ? "input-error-message" : ""}`}
           id="email"
           name="email"
-          required
           onChange={(event) => setEmail(event.target.value)}
         ></input>
         {isInvalidEmail && (
