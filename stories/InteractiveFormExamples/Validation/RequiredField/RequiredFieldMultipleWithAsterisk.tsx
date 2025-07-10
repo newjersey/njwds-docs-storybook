@@ -113,7 +113,6 @@ export const RequiredFieldMultipleWithAsterisk = () => {
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
               placeholder="Enter your last name"
-              required
             />
             {isInvalidLastName && (
               <div className="nj-error-message-container">
