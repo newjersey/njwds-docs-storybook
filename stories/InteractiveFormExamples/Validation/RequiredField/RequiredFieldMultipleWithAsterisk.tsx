@@ -91,13 +91,12 @@ export const RequiredFieldMultipleWithAsterisk = () => {
             value={middleName}
             onChange={(event) => setMiddleName(event.target.value)}
             placeholder="Enter your middle name"
-            required
           />
 
           <div className={`usa-form-group ${isInvalidLastName ? "usa-form-group--error" : ""}`}>
             <label
               className={`usa-label ${isInvalidLastName ? "usa-label--error" : ""}`}
-              htmlFor="middle-name"
+              htmlFor="last-name"
             >
               Last Name
               <abbr title="required" className="usa-hint usa-hint--required">
@@ -107,20 +106,21 @@ export const RequiredFieldMultipleWithAsterisk = () => {
             <input
               className={`usa-input ${isInvalidLastName ? "usa-input--error" : ""}`}
               ref={lastNameInputRef}
-              aria-describedby={`${isInvalidLastName ? "middle-name-error-message" : ""}`}
-              id="middle-name"
-              name="middle-name"
+              aria-describedby={`${isInvalidLastName ? "last-name-error-message" : ""}`}
+              id="last-name"
+              name="last-name"
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
               placeholder="Enter your last name"
+              required
             />
             {isInvalidLastName && (
               <div className="nj-error-message-container">
                 <svg className="usa-icon" focusable="false" aria-hidden="true" role="img">
                   <use xlinkHref={`${icons}#error`}></use>
                 </svg>
-                <span className="usa-error-message" id="middle-name-error-message" role="alert">
-                  Enter your middle name
+                <span className="usa-error-message" id="last-name-error-message" role="alert">
+                  Enter your last name
                 </span>
               </div>
             )}
