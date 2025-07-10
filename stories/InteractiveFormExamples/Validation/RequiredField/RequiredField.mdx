@@ -5,12 +5,12 @@ import RequiredFieldMultipleNoAsteriskSrc from "./RequiredFieldMultipleNoAsteris
 
 # Required Field
 
-The following examples demonstrates best practices for required fields.
+The following examples demonstrate best practices for required fields.
 
 #### Provide an explanation of how required fields are represented
 
 - Always provide instructions that explain required field formatting to users.
-  - If using red asterisks to indicate required fields, include instructions that explains the
+  - If using red asterisks to indicate required fields, include instructions that explain the
     meaning of the red asterisks. Otherwise, the instructions or labels should provide information
     on what is required.
 
@@ -18,7 +18,7 @@ The following examples demonstrates best practices for required fields.
 
 - The default behavior should be to validate required fields on a user action, such as Continue,
   Save, or Submit.
-  - If validations are implemented on blur, this should be on done intentionally on specific fields,
+  - If validations are implemented on blur, this should be done intentionally on specific fields,
     not as a default behavior.
 
 #### `Required` and `noValidate` attributes
@@ -26,10 +26,10 @@ The following examples demonstrates best practices for required fields.
 - Add the `required` attribute to required form fields to indicate that a field must be filled out
   before submitting the form.
   - The `noValidate` attribute is set on the form to disable the browser's automatic client side
-    validation and utilize custom client side validation. Note `noValidate` will also bypass other
-    forms of constraint validation (e.g. `type`, `minLength`, etc.)
+    validation and utilize custom client side validation. Note `noValidate` will also disable other
+    native validations on form elements (e.g. `type`, `minLength`, etc.)
 
-## Example 1: Required fields using asterisks
+## Example 1: Required field pattern with asterisks
 
 <Canvas
   of={RequiredField.WithAsterisk}
@@ -37,7 +37,7 @@ The following examples demonstrates best practices for required fields.
   sourceState="hide"
 />
 
-## Example 2: Required Fields pattern without asterisks
+## Example 2: Required field pattern without asterisks
 
 <Canvas
   of={RequiredField.WithoutAsterisk}
