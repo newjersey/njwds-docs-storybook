@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, within, userEvent } from "@storybook/test";
+import { expect, within, userEvent } from "storybook/test";
 import { RequiredFieldMultipleWithAsterisk } from "./RequiredFieldMultipleWithAsterisk";
 import { RequiredFieldMultipleNoAsterisk } from "./RequiredFieldMultipleNoAsterisk";
 import mdx from "./RequiredField.mdx";
@@ -33,6 +33,7 @@ export const WithAsterisk: Story = {
       "Has explanation of asterisks for required fields and asterisks after each required field",
       async () => {
         expect(canvas.getByText(/Required fields are marked with an asterisk/)).toBeInTheDocument();
+
         const asterisks = canvas.getAllByText("*");
         expect(asterisks.length).toBe(3);
       },
@@ -58,9 +59,11 @@ export const WithAsterisk: Story = {
 
       expect(firstNameErorrMessage).toBeInTheDocument();
       expect(firstNameErorrMessage).toHaveClass("usa-error-message");
-      expect(firstNameInput).toHaveFocus();
+
       expect(lastNameErorrMessage).toBeInTheDocument();
       expect(lastNameErorrMessage).toHaveClass("usa-error-message");
+
+      expect(firstNameInput).toHaveFocus();
     });
 
     await step("Error CSS classes are applied when validation fails", async () => {
@@ -72,11 +75,15 @@ export const WithAsterisk: Story = {
     await step("Required error validations are cleared by filling input", async () => {
       await userEvent.type(firstNameInput, "Jane");
       await userEvent.click(submitButton);
-      expect(lastNameInput).toHaveFocus();
+
       expect(canvas.queryByText("Enter your first name")).not.toBeInTheDocument();
       expect(canvas.getByText("Enter your last name")).toBeInTheDocument();
+
+      expect(lastNameInput).toHaveFocus();
+
       await userEvent.type(lastNameInput, "Doe");
       await userEvent.click(submitButton);
+
       expect(canvas.queryByText("Enter your last name")).not.toBeInTheDocument();
     });
   },
@@ -104,6 +111,7 @@ export const WithoutAsterisk: Story = {
       expect(
         canvas.getByText(/All fields are required unless marked optional/),
       ).toBeInTheDocument();
+
       const optionalText = canvas.getAllByText(/optional/);
       expect(optionalText.length).toBe(2);
     });
@@ -128,9 +136,11 @@ export const WithoutAsterisk: Story = {
 
       expect(firstNameErorrMessage).toBeInTheDocument();
       expect(firstNameErorrMessage).toHaveClass("usa-error-message");
-      expect(firstNameInput).toHaveFocus();
+
       expect(lastNameErorrMessage).toBeInTheDocument();
       expect(lastNameErorrMessage).toHaveClass("usa-error-message");
+
+      expect(firstNameInput).toHaveFocus();
     });
 
     await step("Error CSS classes are applied when validation fails", async () => {
@@ -142,14 +152,16 @@ export const WithoutAsterisk: Story = {
     await step("Required error validations are cleared by filling input", async () => {
       await userEvent.type(firstNameInput, "Jane");
       await userEvent.click(submitButton);
-      expect(lastNameInput).toHaveFocus();
+
       expect(canvas.queryByText("Enter your first name")).not.toBeInTheDocument();
       expect(canvas.getByText("Enter your last name")).toBeInTheDocument();
+
+      expect(lastNameInput).toHaveFocus();
+
       await userEvent.type(lastNameInput, "Doe");
       await userEvent.click(submitButton);
+
       expect(canvas.queryByText("Enter your last name")).not.toBeInTheDocument();
     });
   },
 };
-
-// export const Docs = {};

@@ -61,7 +61,7 @@ export const RequiredFieldMultipleWithAsterisk = () => {
             <input
               className={`usa-input ${isInvalidFirstName ? "usa-input--error" : ""}`}
               ref={firstNameInputRef}
-              aria-describedby={`input-hint ${isInvalidFirstName ? "input-error-message" : ""}`}
+              aria-describedby={`${isInvalidFirstName ? "input-error-message" : ""}`}
               id="first-name"
               name="first-name"
               value={firstName}
