@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/react";
+import { Meta } from "@storybook/react-vite";
 import { RequiredFieldMultipleWithAsterisk } from "./RequiredFieldMultipleWithAsterisk";
 import { RequiredFieldMultipleNoAsterisk } from "./RequiredFieldMultipleNoAsterisk";
 import mdx from "./RequiredField.mdx";
