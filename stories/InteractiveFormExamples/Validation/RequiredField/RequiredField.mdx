@@ -29,6 +29,9 @@ The following examples demonstrate best practices for required fields.
   - The `noValidate` attribute is set on the form to disable the browser's automatic client side
     validation and utilize custom client side validation. Note `noValidate` will also disable other
     native validations on form elements (e.g. `type`, `minLength`, etc.)
+  - You can consider using `aria-required="true"` instead if you need to preserve native form
+    validation. However, consider that these validations will override custom styling implemented by
+    custom client-side validation, and whether this is desired behavior.
 
 ## Example 1: Required field pattern with asterisks
 

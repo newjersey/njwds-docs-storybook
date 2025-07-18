@@ -40,14 +40,17 @@ export const RequiredFieldMultipleWithAsterisk = () => {
     <>
       <form className="usa-form" onSubmit={onSubmit} noValidate>
         <fieldset className="usa-fieldset">
-          <legend className="usa-legend usa-legend--large">Applicant information</legend>
-          <p>
-            Required fields are marked with an asterisk (
-            <abbr title="required" className="usa-hint usa-hint--required">
-              *
-            </abbr>
-            ).
-          </p>
+          <legend className="usa-legend usa-legend--large">
+            Applicant information
+            <span className="usa-hint display-block margin-top-1">
+              Required fields are marked with an asterisk (
+              <abbr title="required" className="usa-hint usa-hint--required">
+                *
+              </abbr>
+              )
+            </span>
+          </legend>
+
           <div className={`usa-form-group ${isInvalidFirstName ? "usa-form-group--error" : ""}`}>
             <label
               className={`usa-label ${isInvalidFirstName ? "usa-label--error" : ""}`}
@@ -61,13 +64,14 @@ export const RequiredFieldMultipleWithAsterisk = () => {
             <input
               className={`usa-input ${isInvalidFirstName ? "usa-input--error" : ""}`}
               ref={firstNameInputRef}
-              aria-describedby={`${isInvalidFirstName ? "input-error-message" : ""}`}
+              aria-describedby={`${isInvalidFirstName ? "first-name-error-message" : ""}`}
               aria-invalid={isInvalidFirstName ? "true" : "false"}
               id="first-name"
               name="first-name"
               value={firstName}
               onChange={(event) => setName(event.target.value)}
               placeholder="Enter your first name"
+              autoComplete="given-name"
               required
             />
             {isInvalidFirstName && (
@@ -75,7 +79,7 @@ export const RequiredFieldMultipleWithAsterisk = () => {
                 <svg className="usa-icon" focusable="false" aria-hidden="true" role="img">
                   <use xlinkHref={`${icons}#error`}></use>
                 </svg>
-                <span className="usa-error-message" id="input-error-message" role="alert">
+                <span className="usa-error-message" id="first-name-error-message" role="alert">
                   Enter your first name
                 </span>
               </div>
@@ -92,6 +96,7 @@ export const RequiredFieldMultipleWithAsterisk = () => {
             value={middleName}
             onChange={(event) => setMiddleName(event.target.value)}
             placeholder="Enter your middle name"
+            autoComplete="additional-name"
           />
 
           <div className={`usa-form-group ${isInvalidLastName ? "usa-form-group--error" : ""}`}>
@@ -114,6 +119,7 @@ export const RequiredFieldMultipleWithAsterisk = () => {
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
               placeholder="Enter your last name"
+              autoComplete="family-name"
               required
             />
             {isInvalidLastName && (
