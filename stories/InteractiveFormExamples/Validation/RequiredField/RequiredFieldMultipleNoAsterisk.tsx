@@ -53,6 +53,7 @@ export const RequiredFieldMultipleNoAsterisk = () => {
               className={`usa-input ${isInvalidFirstName ? "usa-input--error" : ""}`}
               ref={firstNameInputRef}
               aria-describedby={`${isInvalidFirstName ? "input-error-message" : ""}`}
+              aria-invalid={isInvalidFirstName ? "true" : "false"}
               id="first-name"
               name="first-name"
               value={firstName}
@@ -89,12 +90,13 @@ export const RequiredFieldMultipleNoAsterisk = () => {
               className={`usa-label ${isInvalidLastName ? "usa-label--error" : ""}`}
               htmlFor="last-name"
             >
-              Last Name
+              Last name
             </label>
             <input
               className={`usa-input ${isInvalidLastName ? "usa-input--error" : ""}`}
               ref={lastNameInputRef}
               aria-describedby={`${isInvalidLastName ? "last-name-error-message" : ""}`}
+              aria-invalid={isInvalidLastName ? "true" : "false"}
               id="last-name"
               name="last-name"
               value={lastName}

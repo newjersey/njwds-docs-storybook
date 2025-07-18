@@ -3,6 +3,15 @@ import { expect, within, userEvent } from "storybook/test";
 import { RequiredFieldMultipleWithAsterisk } from "./RequiredFieldMultipleWithAsterisk";
 import { RequiredFieldMultipleNoAsterisk } from "./RequiredFieldMultipleNoAsterisk";
 import mdx from "./RequiredField.mdx";
+import {
+  getRequiredFieldStoryElements,
+  checkFieldRequiredAttributes,
+  checkInitialErrorStateClassAndAriaInvalid,
+  checkFormElementsForEmptyFormSubmission,
+  checkForElementFocus,
+  fillAndSubmitForm,
+  checkAccessibleFieldAndButtonNames,
+} from "./RequiredField.test-utils";
 
 type Story = StoryObj<typeof meta>;
 
@@ -23,68 +32,45 @@ export const WithAsterisk: Story = {
 
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
-
-    const firstNameInput = canvas.getByLabelText(/First name/);
-    const lastNameInput = canvas.getByLabelText(/Last Name/);
-    const middleNameInput = canvas.getByLabelText(/Middle name/);
-    const submitButton = canvas.getByRole("button", { name: /submit/i });
+    const elements = getRequiredFieldStoryElements(canvas);
 
     await step(
       "Has explanation of asterisks for required fields and asterisks after each required field",
       async () => {
-        expect(canvas.getByText(/Required fields are marked with an asterisk/)).toBeInTheDocument();
-
-        const asterisks = canvas.getAllByText("*");
-        expect(asterisks.length).toBe(3);
+        expect(
+          canvas.getByText(/Required fields are marked with an asterisk \(*\)/),
+        ).toBeInTheDocument();
+        expect(canvas.getByText(/First name*/)).toBeInTheDocument();
+        expect(canvas.getByText(/Last name*/)).toBeInTheDocument();
       },
     );
 
-    await step("Required fields have proper required attributes for accessibility", async () => {
-      expect(firstNameInput).toHaveAttribute("required");
-      expect(lastNameInput).toHaveAttribute("required");
-      expect(middleNameInput).not.toHaveAttribute("required");
+    await step("Required fields have proper 'required' attributes for accessibility", async () => {
+      checkFieldRequiredAttributes(elements);
     });
 
-    await step("Fields do not have initial error state classes", async () => {
-      expect(firstNameInput).not.toHaveClass("usa-input--error");
-      expect(lastNameInput).not.toHaveClass("usa-input--error");
-      expect(middleNameInput).not.toHaveClass("usa-input--error");
+    await step("Has accessible names for all fields and submit button", async () => {
+      checkAccessibleFieldAndButtonNames(elements);
     });
 
-    await step("Form validates when empty form is submitted", async () => {
-      await userEvent.click(submitButton);
-
-      const firstNameErorrMessage = canvas.getByText("Enter your first name");
-      const lastNameErorrMessage = canvas.getByText("Enter your last name");
-
-      expect(firstNameErorrMessage).toBeInTheDocument();
-      expect(firstNameErorrMessage).toHaveClass("usa-error-message");
-
-      expect(lastNameErorrMessage).toBeInTheDocument();
-      expect(lastNameErorrMessage).toHaveClass("usa-error-message");
-
-      expect(firstNameInput).toHaveFocus();
+    await step("Fields do not have initial error state classes or aria-invalid", async () => {
+      checkInitialErrorStateClassAndAriaInvalid(elements);
     });
 
-    await step("Error CSS classes are applied when validation fails", async () => {
-      expect(firstNameInput).toHaveClass("usa-input--error");
-      expect(lastNameInput).toHaveClass("usa-input--error");
-      expect(middleNameInput).not.toHaveClass("usa-input--error");
+    await step(
+      "Form validates when empty form is submitted and shows errors for required fields",
+      async () => {
+        await userEvent.click(elements.submitButton);
+        checkFormElementsForEmptyFormSubmission(elements);
+      },
+    );
+
+    await step("Form focus moves to first required field with error", async () => {
+      checkForElementFocus(elements.firstNameInput);
     });
 
     await step("Required error validations are cleared by filling input", async () => {
-      await userEvent.type(firstNameInput, "Jane");
-      await userEvent.click(submitButton);
-
-      expect(canvas.queryByText("Enter your first name")).not.toBeInTheDocument();
-      expect(canvas.getByText("Enter your last name")).toBeInTheDocument();
-
-      expect(lastNameInput).toHaveFocus();
-
-      await userEvent.type(lastNameInput, "Doe");
-      await userEvent.click(submitButton);
-
-      expect(canvas.queryByText("Enter your last name")).not.toBeInTheDocument();
+      fillAndSubmitForm(elements);
     });
   },
 };
@@ -95,73 +81,45 @@ export const WithoutAsterisk: Story = {
 
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
+    const elements = getRequiredFieldStoryElements(canvas);
 
-    const firstNameInput = canvas.getByLabelText(/First name/);
-    const lastNameInput = canvas.getByLabelText(/Last Name/);
-    const middleNameInput = canvas.getByLabelText(/Middle name/);
-    const submitButton = canvas.getByRole("button", { name: /submit/i });
+    await step(
+      "Has explanation of how required and optional fields are marked and explictly marked optional field",
+      async () => {
+        expect(
+          canvas.getByText(/All fields are required unless marked optional/),
+        ).toBeInTheDocument();
 
-    await step("Has explanation of how required and optional fields are marked", async () => {
-      expect(
-        canvas.getByText(/All fields are required unless marked optional/),
-      ).toBeInTheDocument();
+        expect(canvas.getByText(/Middle name \(optional\)/)).toBeInTheDocument();
+      },
+    );
+
+    await step("Required fields have proper 'required' attributes for accessibility", async () => {
+      checkFieldRequiredAttributes(elements);
     });
 
-    await step("Has explicitly marked optional middle name field", async () => {
-      expect(
-        canvas.getByText(/All fields are required unless marked optional/),
-      ).toBeInTheDocument();
-
-      const optionalText = canvas.getAllByText(/optional/);
-      expect(optionalText.length).toBe(2);
+    await step("Has accessible names for all fields and submit button", async () => {
+      checkAccessibleFieldAndButtonNames(elements);
     });
 
-    await step("Required fields have proper required attributes", async () => {
-      expect(firstNameInput).toHaveAttribute("required");
-      expect(lastNameInput).toHaveAttribute("required");
-      expect(middleNameInput).not.toHaveAttribute("required");
+    await step("Fields do not have initial error state classes or aria-invalid", async () => {
+      checkInitialErrorStateClassAndAriaInvalid(elements);
     });
 
-    await step("Fields do not have initial error state classes", async () => {
-      expect(firstNameInput).not.toHaveClass("usa-input--error");
-      expect(lastNameInput).not.toHaveClass("usa-input--error");
-      expect(middleNameInput).not.toHaveClass("usa-input--error");
-    });
+    await step(
+      "Form validates when empty form is submitted and shows errors for required fields",
+      async () => {
+        await userEvent.click(elements.submitButton);
+        checkFormElementsForEmptyFormSubmission(elements);
+      },
+    );
 
-    await step("Form validates when empty form is submitted", async () => {
-      await userEvent.click(submitButton);
-
-      const firstNameErorrMessage = canvas.getByText("Enter your first name");
-      const lastNameErorrMessage = canvas.getByText("Enter your last name");
-
-      expect(firstNameErorrMessage).toBeInTheDocument();
-      expect(firstNameErorrMessage).toHaveClass("usa-error-message");
-
-      expect(lastNameErorrMessage).toBeInTheDocument();
-      expect(lastNameErorrMessage).toHaveClass("usa-error-message");
-
-      expect(firstNameInput).toHaveFocus();
-    });
-
-    await step("Error CSS classes are applied when validation fails", async () => {
-      expect(firstNameInput).toHaveClass("usa-input--error");
-      expect(lastNameInput).toHaveClass("usa-input--error");
-      expect(middleNameInput).not.toHaveClass("usa-input--error");
+    await step("Form focus moves to first required field with error", async () => {
+      checkForElementFocus(elements.firstNameInput);
     });
 
     await step("Required error validations are cleared by filling input", async () => {
-      await userEvent.type(firstNameInput, "Jane");
-      await userEvent.click(submitButton);
-
-      expect(canvas.queryByText("Enter your first name")).not.toBeInTheDocument();
-      expect(canvas.getByText("Enter your last name")).toBeInTheDocument();
-
-      expect(lastNameInput).toHaveFocus();
-
-      await userEvent.type(lastNameInput, "Doe");
-      await userEvent.click(submitButton);
-
-      expect(canvas.queryByText("Enter your last name")).not.toBeInTheDocument();
+      fillAndSubmitForm(elements);
     });
   },
 };
