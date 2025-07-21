@@ -3,7 +3,7 @@ import { within, expect, userEvent } from "storybook/test";
 import { ValidationOnSubmitMultipleErrors } from "./ValidationOnSubmitMultipleErrors";
 import { ValidationOnSubmitSingleError } from "./ValidationOnSubmitSingleError";
 import { ValidationOnBlur } from "./ValidationOnBlur";
-import mdx from "./ValidationOnSubmit.mdx";
+import mdx from "./ErrorValidation.mdx";
 import {
   getValidationMultipleErrorsStoryElements,
   checkFieldRequiredAttributes,
