@@ -60,7 +60,7 @@ export const WithAsterisk: Story = {
       "Form validates when empty form is submitted and shows errors for required fields",
       async () => {
         await userEvent.click(elements.submitButton);
-        checkFormElementsForEmptyFormSubmission(elements);
+        await checkFormElementsForEmptyFormSubmission(elements);
       },
     );
 
@@ -69,7 +69,7 @@ export const WithAsterisk: Story = {
     });
 
     await step("Required error validations are cleared by filling input", async () => {
-      fillAndSubmitForm(elements);
+      await fillAndSubmitForm(elements);
     });
   },
 };
@@ -109,7 +109,7 @@ export const WithoutAsterisk: Story = {
       "Form validates when empty form is submitted and shows errors for required fields",
       async () => {
         await userEvent.click(elements.submitButton);
-        checkFormElementsForEmptyFormSubmission(elements);
+        await checkFormElementsForEmptyFormSubmission(elements);
       },
     );
 
@@ -118,7 +118,7 @@ export const WithoutAsterisk: Story = {
     });
 
     await step("Required error validations are cleared by filling input", async () => {
-      fillAndSubmitForm(elements);
+      await fillAndSubmitForm(elements);
     });
   },
 };

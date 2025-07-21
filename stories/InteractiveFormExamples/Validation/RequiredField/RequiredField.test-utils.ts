@@ -1,4 +1,4 @@
-import { expect, userEvent } from "storybook/test";
+import { expect, userEvent, waitFor } from "storybook/test";
 
 export const getRequiredFieldStoryElements = (canvas: any) => ({
   firstNameInput: canvas.getByLabelText(/First name/),
@@ -42,16 +42,31 @@ export const checkInitialErrorStateClassAndAriaInvalid = (elements: RequiredFiel
 
 export const checkFormElementsForEmptyFormSubmission = async (elements: RequiredFieldElements) => {
   await userEvent.click(elements.submitButton);
-  const firstNameErrorMessage = elements.canvas.queryByText("Enter your first name");
-  const lastNameErrorMessage = elements.canvas.queryByText("Enter your last name");
 
-  expect(firstNameErrorMessage).toBeInTheDocument();
+  await waitFor(
+    async () => {
+      const firstNameErrorMessage = elements.canvas.queryByText("Enter your first name");
+      expect(firstNameErrorMessage).toBeInTheDocument();
+    },
+    { timeout: 3000 },
+  );
+
+  await waitFor(
+    async () => {
+      const lastNameErrorMessage = elements.canvas.queryByText("Enter your last name");
+      expect(lastNameErrorMessage).toBeInTheDocument();
+    },
+    { timeout: 3000 },
+  );
+
+  const firstNameErrorMessage = elements.canvas.getByText("Enter your first name");
+  const lastNameErrorMessage = elements.canvas.getByText("Enter your last name");
+
   expect(firstNameErrorMessage).toHaveClass("usa-error-message");
   expect(elements.firstNameInput).toHaveAccessibleDescription("Enter your first name");
   expect(elements.firstNameInput).toHaveClass("usa-input--error");
   expect(elements.firstNameInput).toHaveAttribute("aria-invalid", "true");
 
-  expect(lastNameErrorMessage).toBeInTheDocument();
   expect(lastNameErrorMessage).toHaveClass("usa-error-message");
   expect(elements.lastNameInput).toHaveAccessibleDescription("Enter your last name");
   expect(elements.lastNameInput).toHaveClass("usa-input--error");
@@ -65,13 +80,29 @@ export const fillAndSubmitForm = async (elements: RequiredFieldElements) => {
   await userEvent.type(elements.firstNameInput, "Jane");
   await userEvent.click(elements.submitButton);
 
-  expect(elements.canvas.queryByText("Enter your first name")).not.toBeInTheDocument();
-  expect(elements.canvas.getByText("Enter your last name")).toBeInTheDocument();
+  await waitFor(
+    async () => {
+      expect(elements.canvas.queryByText("Enter your first name")).not.toBeInTheDocument();
+    },
+    { timeout: 3000 },
+  );
+
+  await waitFor(
+    async () => {
+      expect(elements.canvas.getByText("Enter your last name")).toBeInTheDocument();
+    },
+    { timeout: 3000 },
+  );
 
   expect(elements.lastNameInput).toHaveFocus();
 
   await userEvent.type(elements.lastNameInput, "Doe");
   await userEvent.click(elements.submitButton);
 
-  expect(elements.canvas.queryByText("Enter your last name")).not.toBeInTheDocument();
+  await waitFor(
+    async () => {
+      expect(elements.canvas.queryByText("Enter your last name")).not.toBeInTheDocument();
+    },
+    { timeout: 5000 },
+  );
 };
