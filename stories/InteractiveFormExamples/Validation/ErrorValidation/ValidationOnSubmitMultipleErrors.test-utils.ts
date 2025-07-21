@@ -78,7 +78,7 @@ export const checkForElementFocus = (element: HTMLElement) => {
 };
 
 export const checkErrorSummaryDisplay = (elements: ValidationMultipleErrorsElements) => {
-  const errorSummary = elements.canvas.queryByRole("region", { name: /There is a problem/i });
+  const errorSummary = elements.canvas.queryByRole("alert", { name: /There is a problem/i });
   expect(errorSummary).toBeInTheDocument();
   expect(errorSummary).toHaveClass("usa-alert--error");
 
@@ -90,7 +90,7 @@ export const checkErrorSummaryDisplay = (elements: ValidationMultipleErrorsEleme
 };
 
 export const checkErrorSummaryNotDisplayed = (elements: ValidationMultipleErrorsElements) => {
-  const errorSummary = elements.canvas.queryByRole("region", { name: /There is a problem/i });
+  const errorSummary = elements.canvas.queryByRole("alert", { name: /There is a problem/i });
   expect(errorSummary).not.toBeInTheDocument();
 };
 

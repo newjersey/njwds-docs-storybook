@@ -124,7 +124,7 @@ export const MultipleErrorValidation: Story = {
     });
 
     await step("Error summary receives focus when displayed", async () => {
-      const errorSummary = canvas.getByRole("region", { name: /There is a problem/i });
+      const errorSummary = canvas.getByRole("alert", { name: /There is a problem/i });
       expect(errorSummary).toHaveFocus();
     });
 
