@@ -8,7 +8,6 @@ import {
   checkFieldRequiredAttributes,
   checkInitialErrorStateClassAndAriaInvalid,
   checkFormElementsForEmptyFormSubmission,
-  checkForElementFocus,
   fillAndSubmitForm,
   checkAccessibleFieldAndButtonNames,
 } from "./RequiredField.test-utils";
@@ -66,7 +65,7 @@ export const WithAsterisk: Story = {
     );
 
     await step("Form focus moves to first required field with error", async () => {
-      checkForElementFocus(elements.firstNameInput);
+      expect(elements.firstNameInput).toHaveFocus();
     });
 
     await step("Required error validations are cleared by filling input", async () => {
@@ -115,7 +114,7 @@ export const WithoutAsterisk: Story = {
     );
 
     await step("Form focus moves to first required field with error", async () => {
-      checkForElementFocus(elements.firstNameInput);
+      expect(elements.firstNameInput).toHaveFocus();
     });
 
     await step("Required error validations are cleared by filling input", async () => {

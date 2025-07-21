@@ -1,0 +1,72 @@
+import { Meta, Canvas } from "@storybook/addon-docs/blocks";
+import * as ErrorValidation from "./ErrorValidation.stories.js";
+
+import ValidationOnSubmitSingleErrorSrc from "./ValidationOnSubmitSingleError?raw";
+import ValidationOnSubmitMultipleErrorsSrc from "./ValidationOnSubmitMultipleErrors?raw";
+
+import ValidationOnBlurSrc from "./ValidationOnBlur?raw";
+
+# Error Validation
+
+Use error validation to help users identify, navigate, and recover from errors.
+
+## Best Practices
+
+- Always validate forms after a user action, such as Continue, Save, or Submit.
+- The error should be visually and programmatically associated with the input that needs attention
+  - Use `aria-describedby` to refer to the `id` of the element containing the error message when it
+    is displayed.
+  - Remember to remove this `id` from `aria-describedby` when the error message is removed!
+- The input that needs user attention should receive focus upon validation
+  - In the examples below, this is achieved by using `useRef` to create a reference to the input
+    element (`inputRef` in the first example) and then shifting focus to it via `.focus()` on
+    validation failure.
+- Toggle error state classes (`usa-input--error`, `usa-form-group--error`, `usa-label--error`)
+
+## Validate on Submit - Single Error Implementation
+
+- When there are 1-2 errors, individual fields should show validation behavior. Focus should be sent
+  to the first field with an error.
+
+<Canvas
+  of={ErrorValidation.SingleErrorValidation}
+  source={{ code: ValidationOnSubmitSingleErrorSrc, language: "tsx" }}
+  sourceState="hide"
+/>
+
+## Error validation for 3+ form errors with error summary
+
+- An error summary should follow a main heading on the page, either the H1, or the most relevant
+  heading to the form
+- The error summary element should receive focus when triggered
+- Individual errors displayed within the error summary should be links that move focus to the field
+  with the error
+- When 3+ errors have been triggered on submit, use an error summary to display a list of errors in
+  addition to the individual field validations
+- Set `tabIndex={-1}` on the error summary container to make it focusable
+- Automatically focus on the error summary when it appears
+- Implement error summary links as `<a>` elements that that can be clicked to focus on the
+  corresponding input
+- Use `role="alert"` and `aria-labelledby` pointing to the error summary heading
+
+<Canvas
+  of={ErrorValidation.MultipleErrorValidation}
+  source={{ code: ValidationOnSubmitMultipleErrorsSrc, language: "tsx" }}
+  sourceState="hide"
+/>
+
+## Validate on blur
+
+- For form fields with complex requirements, validation can be implemented when the field loses
+  focus ([on blur](https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event)).
+- In the example below, the `onBlur` event handler is used to trigger validation when field loses
+  focus
+- Only validate if the field has content (avoid validating empty fields on blur unless they
+  previously had content)
+- Implement the same accessibility patterns as submit validation (`aria-describedby`, role="alert")
+
+<Canvas
+  of={ErrorValidation.ValidateErrorOnBlur}
+  source={{ code: ValidationOnBlurSrc, language: "tsx" }}
+  sourceState="hide"
+/>

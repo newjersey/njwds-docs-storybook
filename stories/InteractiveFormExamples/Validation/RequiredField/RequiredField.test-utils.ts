@@ -61,10 +61,6 @@ export const checkFormElementsForEmptyFormSubmission = async (elements: Required
   expect(elements.middleNameInput).not.toHaveAttribute("aria-invalid", "true");
 };
 
-export const checkForElementFocus = (element: HTMLElement) => {
-  expect(element).toHaveFocus();
-};
-
 export const fillAndSubmitForm = async (elements: RequiredFieldElements) => {
   await userEvent.type(elements.firstNameInput, "Jane");
   await userEvent.click(elements.submitButton);

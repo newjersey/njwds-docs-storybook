@@ -73,11 +73,14 @@ export const ValidationOnSubmitMultipleErrors = () => {
     <>
       <form className="usa-form" onSubmit={onSubmit} noValidate>
         <fieldset className="usa-fieldset">
+          <div className="usa-hint margin-top-2" id="password-hint">
+            Try submitting without entering required fields to trigger validation errors.
+          </div>
           <legend className="usa-legend usa-legend--large">Sign up for notifications</legend>
           {showErrorSummary && (
             <div
               className="usa-alert usa-alert--error margin-bottom-3 border-05 border-top-105 border-secondary-dark"
-              role="region"
+              role="alert"
               aria-labelledby="error-summary-heading"
               tabIndex={-1}
               ref={errorSummaryRef}
@@ -146,6 +149,7 @@ export const ValidationOnSubmitMultipleErrors = () => {
               className={`usa-input ${isInvalidFirstName ? "usa-input--error" : ""}`}
               ref={firstNameInputRef}
               aria-describedby={`${isInvalidFirstName ? "first-name-error-message" : ""}`}
+              aria-invalid={isInvalidFirstName ? "true" : "false"}
               id="first-name"
               name="first-name"
               value={firstName}
@@ -178,6 +182,7 @@ export const ValidationOnSubmitMultipleErrors = () => {
               className={`usa-input ${isInvalidLastName ? "usa-input--error" : ""}`}
               ref={lastNameInputRef}
               aria-describedby={`${isInvalidLastName ? "last-name-error-message" : ""}`}
+              aria-invalid={isInvalidLastName ? "true" : "false"}
               id="last-name"
               name="last-name"
               value={lastName}
@@ -207,6 +212,7 @@ export const ValidationOnSubmitMultipleErrors = () => {
               className={`usa-input ${isInvalidEmail ? "usa-input--error" : ""}`}
               ref={emailInputRef}
               aria-describedby={`${isInvalidEmail ? "email-address-error-message" : ""}`}
+              aria-invalid={isInvalidEmail ? "true" : "false"}
               id="email-address"
               name="email-address"
               type="email"

@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import { FormEvent } from "react";
 import icons from "@newjersey/njwds/dist/img/sprite.svg";
 import { useRef, useState } from "react";
 
@@ -37,6 +37,7 @@ export const ValidationOnSubmitSingleError = () => {
           className={`usa-input ${isInvalidEmail ? "usa-input--error" : ""}`}
           ref={inputRef}
           aria-describedby={`input-hint ${isInvalidEmail ? "input-error-message" : ""}`}
+          aria-invalid={isInvalidEmail ? "true" : "false"}
           id="email"
           name="email"
           onChange={(event) => setEmail(event.target.value)}

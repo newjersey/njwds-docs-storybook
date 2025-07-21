@@ -1,6 +1,7 @@
-import React, { FormEvent } from "react";
+import { FormEvent } from "react";
 import icons from "@newjersey/njwds/dist/img/sprite.svg";
 import { useRef, useState } from "react";
+
 export const RequiredFieldMultipleWithAsterisk = () => {
   const [isInvalidFirstName, setIsInvalidFirstName] = useState(false);
   const [isInvalidLastName, setIsInvalidLastName] = useState(false);
