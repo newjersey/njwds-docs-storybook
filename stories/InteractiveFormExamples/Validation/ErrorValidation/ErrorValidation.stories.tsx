@@ -26,8 +26,8 @@ import {
   getValidationSingleErrorElements,
   checkSingleErrorInitialState,
   fillOutEmailAndSubmitEmailForm,
-  expectsSingleErrorEmailInputToBeInvalid,
-  expectsSingleErrorEmailInputToBeValid,
+  expectsSingleFieldEmailInputToBeInvalid,
+  expectsSingleFieldEmailInputToBeValid,
 } from "./ValidationOnSubmitSingleError.test-utils";
 
 type Story = StoryObj<typeof meta>;
@@ -62,7 +62,7 @@ export const SingleErrorValidation: Story = {
 
     await step("Form validates when empty email is submitted", async () => {
       await userEvent.click(elements.submitButton);
-      expectsSingleErrorEmailInputToBeInvalid(elements);
+      expectsSingleFieldEmailInputToBeInvalid(elements);
     });
 
     await step("Form focus moves to email input when error occurs", async () => {
@@ -71,22 +71,22 @@ export const SingleErrorValidation: Story = {
 
     await step("Form validates when invalid email format is submitted", async () => {
       await fillOutEmailAndSubmitEmailForm(elements, "invalid-email");
-      expectsSingleErrorEmailInputToBeInvalid(elements);
+      expectsSingleFieldEmailInputToBeInvalid(elements);
     });
 
     await step("Form validates when email without domain is submitted", async () => {
       await fillOutEmailAndSubmitEmailForm(elements, "test@");
-      expectsSingleErrorEmailInputToBeInvalid(elements);
+      expectsSingleFieldEmailInputToBeInvalid(elements);
     });
 
     await step("Form validates when email without @ symbol is submitted", async () => {
       await fillOutEmailAndSubmitEmailForm(elements, "testexample.com");
-      expectsSingleErrorEmailInputToBeInvalid(elements);
+      expectsSingleFieldEmailInputToBeInvalid(elements);
     });
 
     await step("Error is cleared when valid email is submitted", async () => {
       await fillOutEmailAndSubmitEmailForm(elements, "test@example.com");
-      expectsSingleErrorEmailInputToBeValid(elements);
+      expectsSingleFieldEmailInputToBeValid(elements);
     });
   },
 };

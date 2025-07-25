@@ -29,7 +29,7 @@ export const fillOutEmailAndSubmitEmailForm = async (
   await userEvent.click(elements.submitButton);
 };
 
-export const expectsSingleErrorEmailInputToBeInvalid = (
+export const expectsSingleFieldEmailInputToBeInvalid = (
   elements: ValidationSingleErrorElements,
 ) => {
   const errorMessage = elements.canvas.getByText("Please enter a valid email address!");
@@ -39,7 +39,7 @@ export const expectsSingleErrorEmailInputToBeInvalid = (
   expect(elements.emailInput).toHaveFocus();
 };
 
-export const expectsSingleErrorEmailInputToBeValid = (elements: ValidationSingleErrorElements) => {
+export const expectsSingleFieldEmailInputToBeValid = (elements: ValidationSingleErrorElements) => {
   const errorMessage = elements.canvas.queryByText("Please enter a valid email address!");
   expect(errorMessage).not.toBeInTheDocument();
   expect(elements.emailInput).not.toHaveClass("usa-input--error");
