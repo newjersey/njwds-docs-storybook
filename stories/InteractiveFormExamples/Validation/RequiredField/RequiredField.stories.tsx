@@ -8,7 +8,6 @@ import {
   checkFieldRequiredAttributes,
   checkInitialErrorStateClassAndAriaInvalid,
   checkFormElementsForEmptyFormSubmission,
-  checkForElementFocus,
   fillAndSubmitForm,
   checkAccessibleFieldAndButtonNames,
 } from "./RequiredField.test-utils";
@@ -61,16 +60,16 @@ export const WithAsterisk: Story = {
       "Form validates when empty form is submitted and shows errors for required fields",
       async () => {
         await userEvent.click(elements.submitButton);
-        checkFormElementsForEmptyFormSubmission(elements);
+        await checkFormElementsForEmptyFormSubmission(elements);
       },
     );
 
     await step("Form focus moves to first required field with error", async () => {
-      checkForElementFocus(elements.firstNameInput);
+      expect(elements.firstNameInput).toHaveFocus();
     });
 
     await step("Required error validations are cleared by filling input", async () => {
-      fillAndSubmitForm(elements);
+      await fillAndSubmitForm(elements);
     });
   },
 };
@@ -110,16 +109,16 @@ export const WithoutAsterisk: Story = {
       "Form validates when empty form is submitted and shows errors for required fields",
       async () => {
         await userEvent.click(elements.submitButton);
-        checkFormElementsForEmptyFormSubmission(elements);
+        await checkFormElementsForEmptyFormSubmission(elements);
       },
     );
 
     await step("Form focus moves to first required field with error", async () => {
-      checkForElementFocus(elements.firstNameInput);
+      expect(elements.firstNameInput).toHaveFocus();
     });
 
     await step("Required error validations are cleared by filling input", async () => {
-      fillAndSubmitForm(elements);
+      await fillAndSubmitForm(elements);
     });
   },
 };
