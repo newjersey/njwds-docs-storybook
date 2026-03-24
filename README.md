@@ -1,7 +1,7 @@
 # NJWDS Interactive Documentation
 
 This repository contains a number of interactive examples of NJWDS components. The examples and
-documentation are built and published using Storybook.
+documentation are built and published using Storybook
 
 ## Running Locally
 
